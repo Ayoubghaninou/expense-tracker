@@ -19,11 +19,21 @@ router.post("/", auth, async (req, res) => {
 });
 
 // Get all expenses for the authenticated user
-router.get("/", auth, async (req, res) => {
+router.get("/:month/:year", auth, async (req, res) => {
   const userId = req.userId;
+  const { month, year } = req.params;
+
   try {
-    const expenses = await Expense.find({ userId });
-    res.json(expenses);
+    const expenses = await Expense.find({
+      userId,
+      date: {
+        $gte: new Date(year, month - 1, 1),
+        $lt: new Date(year, month, 1),
+      },
+    }).sort({ date: -1 });
+    const earliestExpense = await Expense.findOne({ userId }).sort({ date: 1 });
+
+    res.json({expenses,earliestExpense});
   } catch (error) {
     res.status(500).json({ message: error.message });
   }

@@ -6,7 +6,6 @@ const PrivateRoute = ({ children }) => {
   const isAuthenticated = sessionStorage.getItem("token");
 
   if (!isAuthenticated) {
-    alert("Please login first")
     return <Navigate to={"/login"} />;
   }
   return <> {children}</>;

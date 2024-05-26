@@ -18,3 +18,19 @@ export const register = (name,email, password) => async (dispatch) => {
     dispatch({ type: "REGISTER_ERROR", payload: error.response.data.message });
   }
 };
+
+export const updateUserBudget = (budget) => async (dispatch) => {
+  try {
+    const token = sessionStorage.getItem('token');
+    const config = {
+      headers: {
+        'Content-Type': 'application/json',
+        Authorization: `Bearer ${token}`,
+      },
+    };
+    const res = await axios.put(`${baseurl}/budget`, { budget }, config);
+    dispatch({ type: 'UPDATE_BUDGET_SUCCESS', payload: res.data.budget });
+  } catch (error) {
+    dispatch({ type: 'UPDATE_BUDGET_ERROR', payload: error.response.data.message });
+  }
+}

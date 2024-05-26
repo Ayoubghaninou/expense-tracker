@@ -1,5 +1,7 @@
 import React, { useMemo } from "react";
 import { formatDate } from "../utils/dateUtils";
+import { FaRegEdit } from "react-icons/fa";
+import { MdDelete } from "react-icons/md";
 
 const ExpenseList = ({
   expenses,
@@ -11,31 +13,33 @@ const ExpenseList = ({
     () =>
       expenses?.map((expense) => (
         <li
-          key={expense._id}
-          className="flex items-center justify-between border-b bg-gray-200 mt-2 px-3 rounded-2xl py-1"
+          key={expense.category}
+          className="flex shadow items-center justify-between  bg-white mt-2 px-3 rounded-xl py-1"
         >
           <div>
-         <h1 className="font-semiold text-xl"> {expense.category} </h1>   
-             <span className="text-gray-400 text-sm">{formatDate(expense.date)}</span>
+            <h1 className="font-semiold text-xl"> {expense.category} </h1>
+            <span className="text-gray-400 text-sm">
+              {formatDate(expense.date)}
+            </span>
           </div>
-          <div>
-            <div>
-              <h1 className="text-red-400 text-xl">- {expense.amount} </h1>
-            </div>
+
+          <div className="text-2xl  flex justify-center items-center">
+            <span className="text-black-400 text-xl">  ₹ {expense.amount} </span>
+
             <button
               onClick={() => {
                 setVisibleForm(true);
                 handleEditClick(expense);
               }}
-              className="bg-blue-500 text-white py-1 px-2 rounded-md mr-2"
+              className="pl-3 pr-1"
             >
-              Edit
+              <FaRegEdit />
             </button>
             <button
               onClick={() => handleDeleteClick(expense._id)}
-              className="bg-red-500 text-white py-1 px-2 rounded-md"
+              className="pl-1 text-red-500"
             >
-              Delete
+              <MdDelete />
             </button>
           </div>
         </li>

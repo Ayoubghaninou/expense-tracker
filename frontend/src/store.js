@@ -1,10 +1,10 @@
 import { createStore, applyMiddleware, combineReducers } from 'redux';
 import {thunk} from 'redux-thunk';
-import authReducer from './reducers/authReducer';
 import expenseReducer from './reducers/expenseReducer';
+import userReducer from './reducers/authReducer';
 
 const rootReducer = combineReducers({
-  auth: authReducer,
+  auth: userReducer,
   expenses: expenseReducer,
 });
 

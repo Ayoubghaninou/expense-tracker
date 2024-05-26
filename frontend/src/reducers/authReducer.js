@@ -5,6 +5,7 @@ const initialState = {
   token: null,
   loading: false,
   error: null,
+  budget: null,
 };
 
 const userReducer = (state = initialState, action) => {
@@ -15,11 +16,24 @@ const userReducer = (state = initialState, action) => {
       return {
         ...state,
         user: action.payload.name,
+        budget: action.payload.budget,
         token: action.payload.token,
         loading: false,
       };
-    case "LOGIN_FAILURE":
+    case "LOGIN_ERROR":
       return { ...state, loading: false, error: action.payload };
+
+    case "UPDATE_BUDGET_SUCCESS":
+      return {
+        ...state,
+        budget: action.payload,
+        //  user: { ...state.user, budget: action.payload },
+      };
+    case "UPDATE_BUDGET_ERROR":
+      return {
+        ...state,
+        error: action.payload,
+      };
 
     case "REGISTER_REQUEST":
       return { ...state, loading: true, error: null };

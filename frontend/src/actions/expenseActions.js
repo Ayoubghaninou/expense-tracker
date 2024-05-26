@@ -1,10 +1,10 @@
 import axios from "axios";
 const baseurl = "http://localhost:3000/api/expenses";
 
-export const fetchExpenses = () => async (dispatch) => {
+export const fetchExpenses = (month,year) => async (dispatch) => {
   try {
     const token = sessionStorage.getItem("token");
-    const res = await axios.get(baseurl, {
+    const res = await axios.get(`${baseurl}/${month}/${year}`, {
       headers: {
         Authorization: `Bearer ${token}`,
       },

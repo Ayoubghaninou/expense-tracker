@@ -3,11 +3,10 @@ import { useSelector } from "react-redux";
 
 const UserInfo = ({  onLogout }) => {
   const { user } = useSelector((state) => state.auth);
-
   return (
     <div className="flex justify-between items-center mb-4">
       <div>
-        <p className="text-xl font-semibold">Welcome, {user}</p>
+        <p className="text-xl font-semibold">Hi, {user}</p>
         <p className="text-sm text-gray-600">{user?.email}</p>
       </div>
 

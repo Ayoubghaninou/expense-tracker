@@ -2,6 +2,8 @@ const initialState = {
     loading: true,
     error: null,
     expenses: [],
+    earliestDate: null,
+
   };
   
   const expenseReducer = (state = initialState, action) => {
@@ -10,7 +12,9 @@ const initialState = {
         return {
           ...state,
           loading: false,
-          expenses: action.payload,
+          expenses: action.payload.expenses,
+          earliestDate: action.payload.earliestExpense.date,
+
         };
       case 'FETCH_EXPENSES_ERROR':
       case 'ADD_EXPENSE_ERROR':
@@ -25,7 +29,7 @@ const initialState = {
         return {
           ...state,
           loading: false,
-          expenses: [...state.expenses, action.payload],
+          expenses: [ action.payload,...state.expenses,],
         };
       case 'UPDATE_EXPENSE_SUCCESS':
         return {
