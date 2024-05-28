@@ -14,7 +14,7 @@ router.post("/", auth, async (req, res) => {
     await expense.save();
     res.status(201).json(expense);
   } catch (error) {
-    res.status(400).json({ error: error.message });
+    res.status(400).json({ message: error.message });
   }
 });
 
@@ -33,7 +33,7 @@ router.get("/:month/:year", auth, async (req, res) => {
     }).sort({ date: -1 });
     const earliestExpense = await Expense.findOne({ userId }).sort({ date: 1 });
 
-    res.json({expenses,earliestExpense});
+    res.json({ expenses, earliestExpense });
   } catch (error) {
     res.status(500).json({ message: error.message });
   }

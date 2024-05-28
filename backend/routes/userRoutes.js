@@ -9,9 +9,13 @@ const router = express.Router();
 router.post("/register", async (req, res) => {
   const { name, email, password } = req.body;
   try {
+    const findUser = await User.findOne({ email });
+    if (findUser) {
+      return res.status(400).json({ message: "User already exists." });
+    }
     const user = new User({ name, email, password });
     await user.save();
-    res.status(201).json({ message: "User registered" });
+    res.status(201).json({ message: "Successfully Registered" });
   } catch (error) {
     res.status(400).json({ message: error });
   }
@@ -27,30 +31,29 @@ router.post("/login", async (req, res) => {
     const token = jwt.sign({ userId: user._id }, process.env.JWT_SECRET, {
       expiresIn: "1h",
     });
-      const name=user.name;
-      const budget=user.budget;
-    res.json({ token, name,budget });
+    const name = user.name;
+    const budget = user.budget;
+    res.json({ token, name, budget });
   } catch (error) {
     res.status(400).json({ message: error });
   }
 });
 
-
-router.put('/budget', auth, async (req, res) => {
+router.put("/budget", auth, async (req, res) => {
   const { budget } = req.body;
   const userId = req.userId;
 
   try {
     const user = await User.findById(userId);
     if (!user) {
-      return res.status(404).json({ message: 'User not found' });
+      return res.status(404).json({ message: "User not found" });
     }
 
     user.budget = budget;
     await user.save();
     res.json({ budget: user.budget });
   } catch (error) {
-    res.status(500).send({message:'Server error'});
+    res.status(500).send({ message: "Server error" });
   }
 });
 
