@@ -13,6 +13,10 @@ const LoginPage = () => {
     (state) => state.auth
   );
 
+  useEffect(() => {
+    window.scrollTo(0, 0); 
+  }, []);
+
   const HandleSubmit = async (e) => {
     e.preventDefault();
     await dispatch(login(email, password));
