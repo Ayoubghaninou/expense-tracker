@@ -33,6 +33,12 @@ const ExpenseTracker = () => {
   const [year, setYear] = useState(new Date().getFullYear()); // Default to current year
   const [showBudgetModal, setBudgetModal] = useState(false);
 
+
+  useEffect(() => {
+    window.scrollTo(0, 0); 
+  }, []);
+
+
   const getMonthOptions = () => {
     if (!earliestDate) return [];
 
@@ -137,6 +143,7 @@ const ExpenseTracker = () => {
           category={category}
           setCategory={setCategory}
           editId={editId}
+          setEditId={setEditId}
           setVisibleForm={setVisibleForm}
           handleAddExpense={handleAddExpense}
         />

@@ -10,6 +10,7 @@ const ExpenseForm = ({
   setVisibleForm,
   setCategory,
   editId,
+  setEditId,
   handleAddExpense,
 }) => {
   const dispatch = useDispatch();
@@ -56,7 +57,10 @@ const ExpenseForm = ({
         <h1>{editId ? "Edit" : "Add"} Expense</h1>
         <div
           className="w-max cursor-pointer ml-auto text-3xl"
-          onClick={() => setVisibleForm(false)}
+          onClick={() => {
+            setAmount(null)
+            setCategory(null)
+            setVisibleForm(false)}}
         >
           <IoMdCloseCircleOutline />
         </div>

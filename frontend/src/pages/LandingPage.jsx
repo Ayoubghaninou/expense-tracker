@@ -1,7 +1,11 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { Link } from "react-router-dom";
 
 function LandingPage() {
+  useEffect(() => {
+    window.scrollTo(0, 0); 
+  }, []);
+
   return (
     <div className="bg-blue_c text-center relative  min-h-[100vh]">
       <h1 className="text-[7vw] font-bold text-white  pt-[10vh]">

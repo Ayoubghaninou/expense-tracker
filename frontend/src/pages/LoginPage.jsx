@@ -13,6 +13,10 @@ const LoginPage = () => {
     (state) => state.auth
   );
 
+  useEffect(() => {
+    window.scrollTo(0, 0); 
+  }, []);
+
   const HandleSubmit = async (e) => {
     e.preventDefault();
     await dispatch(login(email, password));
@@ -37,7 +41,7 @@ const LoginPage = () => {
   return (
     <div className="bg-blue_c min-h-screen ">
       <div className="min-h-[35vh] flex justify-center items-center">
-        <img src="/login_yellow_icon.png" className=" mx-auto" alt="" />
+        <img src="/login_yellow_icon.svg" className="w-2/5  mx-auto" alt="" />
       </div>
       <div className="bg-white min-h-[65vh]	rounded-t-3xl shadow-md     p-8 max-w-md w-full">
         <h1 className="text-[7vw] font-bold text-center text-light_black  mb-6">
