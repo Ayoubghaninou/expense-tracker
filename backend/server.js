@@ -17,7 +17,7 @@ mongoose
   .catch((err) => console.log(err));
 
 app.use("/api", routes); // Use the routes index file
-app.get("/", (res) => {
+app.get("/", (req, res) => {
   res.send("Welcome to expense api");
 });
 const PORT = process.env.PORT || 5000;

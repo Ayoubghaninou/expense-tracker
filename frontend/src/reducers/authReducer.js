@@ -1,7 +1,5 @@
 const initialState = {
-  user: null,
   token: null,
-  budget: 0,
   loginLoading: false,
   registerLoading: false,
   updateBudgetLoading: false,
@@ -43,7 +41,6 @@ const userReducer = (state = initialState, action) => {
     case "LOGIN_SUCCESS":
       return {
         ...state,
-        user: action.payload.name,
         budget: action.payload.budget,
         token: action.payload.token,
         loginLoading: false,
@@ -88,7 +85,12 @@ const userReducer = (state = initialState, action) => {
         updateBudgetLoading: false,
         updateBudgetError: action.payload,
       };
-
+     case "CLEAR_ERROR":
+     return{
+      ...state,
+      loginError: null,
+      registerError:null
+     }
     case "LOGOUT":
       return initialState;
 

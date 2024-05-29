@@ -8,9 +8,8 @@ import { toast } from "react-toastify";
 const BudgetInput = ({ setBudgetModal }) => {
   const dispatch = useDispatch();
   const [localBudget, setBudget] = useState();
-  const { updateBudgetLoading, updateBudgetSuccess, updateBudgetError } = useSelector(
-    (state) => state.auth
-  );
+  const { updateBudgetLoading, updateBudgetSuccess, updateBudgetError } =
+    useSelector((state) => state.auth);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -32,7 +31,7 @@ const BudgetInput = ({ setBudgetModal }) => {
     dispatch({ type: "BUDGET_STATE_RESET" });
   }, [updateBudgetSuccess]);
   return (
-    <div className="mb-4 fixed left-10 rounded-xl right-10 bg-white z-10 px-2 py-2 ">
+    <div className="mb-4 fixed shadow-lg border top-[30%]  left-10 rounded-xl right-10 bg-white z-10 px-2 py-2 ">
       <div
         className="w-max cursor-pointer ml-auto text-3xl"
         onClick={() => setBudgetModal(false)}
@@ -40,7 +39,7 @@ const BudgetInput = ({ setBudgetModal }) => {
         <IoMdCloseCircleOutline />
       </div>
       <form onSubmit={handleSubmit} className="flex flex-col items-center">
-        <label className="text-lg font-semibold mb-2">
+        <label className="text-lg text-light_black font-semibold mb-2">
           Set Your Monthly Budget
         </label>
         <input
@@ -54,7 +53,7 @@ const BudgetInput = ({ setBudgetModal }) => {
         <button
           type="submit"
           disabled={updateBudgetLoading}
-          className="w-full bg-blue-500 text-white py-3 rounded-md hover:bg-blue-600 transition duration-200"
+          className="w-full bg-blue_c w-max px-4 text-white py-3 rounded-md hover:bg-blue-600 transition duration-200"
         >
           {updateBudgetLoading ? (
             <div className="flex justify-center items-center">

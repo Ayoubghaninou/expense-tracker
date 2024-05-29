@@ -1,22 +1,22 @@
 import React from "react";
-import { useSelector } from "react-redux";
+import { memo } from "react";
 
 const UserInfo = ({  onLogout }) => {
-  const { user } = useSelector((state) => state.auth);
+  const user=sessionStorage.getItem("user")
   return (
-    <div className="flex justify-between items-center mb-4">
-      <div>
-        <p className="text-xl font-semibold">Hi, {user}</p>
-        <p className="text-sm text-gray-600">{user?.email}</p>
+    <div className="flex justify-between font-medium text-light_black items-center ">
+      <div className="border-l-8 border-blue_c pl-2">
+        <p className="text-xl">Hi, {user}</p>
+        <p className="text-sm ">{user?.email}</p>
       </div>
 
       <img
         onClick={onLogout}
         className="w-1/5 m text-white py-2 px-4 rounded-md"
-        src="https://www.svgrepo.com/show/268357/off-button-power-button.svg"
+        src="/log_out.svg"
       />
     </div>
   );
 };
 
-export default UserInfo;
+export default memo(UserInfo)  ;

@@ -51,7 +51,7 @@ const ExpenseForm = ({
   }, [updateSuccess, dispatch]);
 
   return (
-    <div className="fixed rounded-lg z-10 bg-white w-4/5 px-5 py-3 top-50 left-5 bottom-50 right-5 mx-auto">
+    <div className="fixed shadow-lg border text-light_black rounded-lg z-10 bg-white w-4/5 px-5 py-3 top-50 left-5 bottom-50 right-5 mx-auto">
       <div className="flex text-lg font-semibold items-center mb-2">
         <h1>{editId ? "Edit" : "Add"} Expense</h1>
         <div
@@ -82,7 +82,7 @@ const ExpenseForm = ({
           <button
             type="submit"
             disabled={addLoading}
-            className="bg-green-700 mt-4 w-max mx-auto block text-white py-2 px-4 rounded-md"
+            className="bg-blue_c mt-4 w-max mx-auto block text-white py-2 px-4 rounded-md"
           >
             <div className="flex justify-center items-center">
               <svg
@@ -109,7 +109,7 @@ const ExpenseForm = ({
           <button
             type="submit"
             disabled={updateLoading}
-            className="bg-green-700 mt-4 w-max mx-auto block text-white py-2 px-4 rounded-md"
+            className="bg-blue_c mt-4 w-max mx-auto block text-white py-2 px-4 rounded-md"
           >
             <div className="flex justify-center items-center">
               <svg
@@ -135,7 +135,7 @@ const ExpenseForm = ({
         ) : (
           <button
             type="submit"
-            className="bg-green-700 mt-4 w-max mx-auto block text-white py-2 px-4 rounded-md"
+            className="bg-blue_c mt-4 w-max mx-auto block text-white py-2 px-4 rounded-md"
           >
             {editId ? "Update Expense" : "Add Expense"}
           </button>

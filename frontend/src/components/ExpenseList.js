@@ -5,14 +5,14 @@ import { MdAutoDelete, MdDelete } from "react-icons/md";
 import { v4 as uuidv4 } from "uuid";
 import { useDispatch, useSelector } from "react-redux";
 import { toast } from "react-toastify";
+import 'react-toastify/dist/ReactToastify.css';
 
 const ExpenseList = ({
-  expenses,
   setVisibleForm,
   handleEditClick,
   handleDeleteClick,
 }) => {
-  const { deleteSuccess, deleteLoading, deleteError } = useSelector(
+  const { deleteSuccess, expenses, deleteLoading, deleteError, fetchLoading, fetchError } = useSelector(
     (state) => state.expenses
   );
 
@@ -45,24 +45,28 @@ const ExpenseList = ({
       expenses?.map((expense) => (
         <li
           key={uuidv4()}
-          className="flex shadow items-center justify-between bg-white mt-2 px-3 rounded-xl py-1"
+          className="flex items-center bg-[#E9E9E9] justify-between mt-3 px-3 rounded-lg py-1"
         >
           <div>
-            <h1 className="font-semibold text-xl">{expense.category}</h1>
+            <h1 className="font-semibold text-light_black text-xl">
+              {expense.category}
+            </h1>
             <span className="text-gray-400 text-sm">
               {formatDate(expense.date)}
             </span>
           </div>
 
           <div className="text-2xl flex justify-center items-center">
-            <span className="text-black-400 text-xl">₹ {expense.amount}</span>
+            <span className="text-blue_c font-bold text-2xl">
+              ₹ {expense.amount}
+            </span>
 
             <button
               onClick={() => {
                 setVisibleForm(true);
                 handleEditClick(expense);
               }}
-              className="pl-3 pr-1"
+              className="pl-3 text-light_black pr-1"
             >
               <FaRegEdit />
             </button>
@@ -72,7 +76,7 @@ const ExpenseList = ({
               className="pl-1 text-red-500"
             >
               {deleteLoading && deletingId === expense._id ? (
-                <MdAutoDelete  />
+                <MdAutoDelete />
               ) : (
                 <MdDelete />
               )}
@@ -82,6 +86,52 @@ const ExpenseList = ({
       )),
     [expenses, handleEditClick, handleDeleteClick, deleteLoading, deletingId]
   );
+
+  if (fetchLoading) {
+    return (
+      <div role="status" className="space-y-2.5 animate-pulse max-w-lg">
+        <div className="flex items-center w-full">
+          <div className="h-2.5 bg-gray-200 rounded-full dark:bg-gray-700 w-32"></div>
+          <div className="h-2.5 ms-2 bg-gray-300 rounded-full dark:bg-gray-600 w-24"></div>
+          <div className="h-2.5 ms-2 bg-gray-300 rounded-full dark:bg-gray-600 w-full"></div>
+        </div>
+        <div className="flex items-center w-full max-w-[480px]">
+          <div className="h-2.5 bg-gray-200 rounded-full dark:bg-gray-700 w-full"></div>
+          <div className="h-2.5 ms-2 bg-gray-300 rounded-full dark:bg-gray-600 w-full"></div>
+          <div className="h-2.5 ms-2 bg-gray-300 rounded-full dark:bg-gray-600 w-24"></div>
+        </div>
+        <div className="flex items-center w-full max-w-[400px]">
+          <div className="h-2.5 bg-gray-300 rounded-full dark:bg-gray-600 w-full"></div>
+          <div className="h-2.5 ms-2 bg-gray-200 rounded-full dark:bg-gray-700 w-80"></div>
+          <div className="h-2.5 ms-2 bg-gray-300 rounded-full dark:bg-gray-600 w-full"></div>
+        </div>
+        <div className="flex items-center w-full max-w-[480px]">
+          <div className="h-2.5 ms-2 bg-gray-200 rounded-full dark:bg-gray-700 w-full"></div>
+          <div className="h-2.5 ms-2 bg-gray-300 rounded-full dark:bg-gray-600 w-full"></div>
+          <div className="h-2.5 ms-2 bg-gray-300 rounded-full dark:bg-gray-600 w-24"></div>
+        </div>
+        <div className="flex items-center w-full max-w-[440px]">
+          <div className="h-2.5 ms-2 bg-gray-300 rounded-full dark:bg-gray-600 w-32"></div>
+          <div className="h-2.5 ms-2 bg-gray-300 rounded-full dark:bg-gray-600 w-24"></div>
+          <div className="h-2.5 ms-2 bg-gray-200 rounded-full dark:bg-gray-700 w-full"></div>
+        </div>
+        <div className="flex items-center w-full max-w-[360px]">
+          <div className="h-2.5 ms-2 bg-gray-300 rounded-full dark:bg-gray-600 w-full"></div>
+          <div className="h-2.5 ms-2 bg-gray-200 rounded-full dark:bg-gray-700 w-80"></div>
+          <div className="h-2.5 ms-2 bg-gray-300 rounded-full dark:bg-gray-600 w-full"></div>
+        </div>
+        <span className="sr-only">Loading...</span>
+      </div>
+    );
+  }
+
+  if (fetchError) {
+    return (
+      <div className="text-red-500">
+        Failed to load expenses. Please try again later.
+      </div>
+    );
+  }
 
   return <ul>{memoizedExpenses}</ul>;
 };

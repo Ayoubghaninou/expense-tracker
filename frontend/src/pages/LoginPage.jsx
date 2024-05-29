@@ -20,7 +20,10 @@ const LoginPage = () => {
 
   useEffect(() => {
     if (token) {
-      navigate("/expenses");
+      toast.success("Login successful!");
+      setTimeout(() => {
+        navigate("/expenses");
+      }, 200);
     }
   }, [token]);
 
@@ -28,12 +31,16 @@ const LoginPage = () => {
     if (loginError) {
       toast.error(loginError);
     }
+    dispatch({type:"CLEAR_ERROR"})
   }, [loginError]);
 
   return (
-    <div className="flex justify-center items-center min-h-screen w-11/12 mx-auto">
-      <div className="bg-white shadow-md rounded-lg p-8 max-w-md w-full">
-        <h1 className="text-2xl font-bold text-center text-gray-700 mb-6">
+    <div className="bg-blue_c min-h-screen ">
+      <div className="min-h-[35vh] flex justify-center items-center">
+        <img src="/login_yellow_icon.png" className=" mx-auto" alt="" />
+      </div>
+      <div className="bg-white min-h-[65vh]	rounded-t-3xl shadow-md     p-8 max-w-md w-full">
+        <h1 className="text-[7vw] font-bold text-center text-light_black  mb-6">
           Welcome Back !
         </h1>
         <form onSubmit={HandleSubmit}>
@@ -69,7 +76,7 @@ const LoginPage = () => {
           <button
             type="submit"
             disabled={loginLoading}
-            className="w-full bg-blue-500 text-white py-3 rounded-md hover:bg-blue-600 transition duration-200"
+            className="w-full bg-blue_c  text-gray_c py-3 rounded-md hover:bg-gray-400 font-medium transition duration-200"
           >
             {loginLoading ? (
               <div className="flex justify-center items-center">
@@ -93,13 +100,13 @@ const LoginPage = () => {
                 Loading...
               </div>
             ) : (
-              "Login"
+              "LOG IN"
             )}
           </button>
-          <div className="text-center mt-4 text-sm text-gray-600">
+          <div className="text-center font-medium mt-4 text-sm text-gray-700">
             Don't have an account?{" "}
-            <Link to="/register" className="text-blue-500 hover:underline">
-              Sign up
+            <Link to="/register" className="text-yellow_c  hover:underline">
+              Sign Up
             </Link>
           </div>
         </form>

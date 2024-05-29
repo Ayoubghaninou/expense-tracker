@@ -6,9 +6,20 @@ import "./App.css";
 import { ToastContainer } from "react-toastify";
 const App = () => {
   return (
-    <div className="bg-[#d4d4d4] font-primery_font  min-h-screen">
+    <div className="font-primery_font  min-h-screen">
       <AllRoutes />
-      <ToastContainer />
+      <ToastContainer
+      className={"toast_custom_design"}
+        position="top-right"
+        autoClose={1500}
+        hideProgressBar={false}
+        newestOnTop={false}
+        closeOnClick
+        rtl={false}
+        pauseOnFocusLoss
+        draggable
+        pauseOnHover
+      />
     </div>
   );
 };
