@@ -13,6 +13,7 @@ const initialState = {
   deleteSuccess: false,
   expenses: [],
   earliestDate: null,
+  newUserEarliestDate:null
 };
 
 const expenseReducer = (state = initialState, action) => {
@@ -51,6 +52,8 @@ const expenseReducer = (state = initialState, action) => {
         ...state,
         addLoading: false,
         expenses: [action.payload, ...state.expenses],
+        newUserEarliestDate: action.payload?.date,
+
         addSuccess: true,
       };
     case "ADD_EXPENSE_ERROR":

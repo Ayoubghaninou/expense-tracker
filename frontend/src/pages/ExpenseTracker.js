@@ -15,7 +15,7 @@ import ExpenseList from "../components/ExpenseList";
 import UserInfo from "../components/UserInfo";
 import UseChart from "../components/UseChart";
 import BudgetInput from "../components/BudgetInput";
-import { ToastContainer, toast } from "react-toastify";
+import {  toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { v4 as uuidv4 } from "uuid";
 
@@ -24,7 +24,7 @@ const ExpenseTracker = () => {
   const navigate = useNavigate();
   const { budget, token, user } = useSelector((state) => state.auth);
 
-  const { expenses, earliestDate } = useSelector((state) => state.expenses);
+  const { expenses,newUserEarliestDate, earliestDate } = useSelector((state) => state.expenses);
   const [amount, setAmount] = useState("");
   const [category, setCategory] = useState("");
   const [editId, setEditId] = useState(null);
@@ -33,16 +33,14 @@ const ExpenseTracker = () => {
   const [year, setYear] = useState(new Date().getFullYear()); // Default to current year
   const [showBudgetModal, setBudgetModal] = useState(false);
 
-
   useEffect(() => {
-    window.scrollTo(0, 0); 
+    window.scrollTo(0, 0);
   }, []);
 
-
   const getMonthOptions = () => {
-    if (!earliestDate) return [];
+    //if (!earliestDate||!newUserEarliestDate) return [];
 
-    const startDate = new Date(earliestDate);
+    const startDate = new Date(earliestDate||newUserEarliestDate);
     const currentDate = new Date();
 
     let months = [];
@@ -96,8 +94,10 @@ const ExpenseTracker = () => {
 
   const handleLogout = () => {
     dispatch(logout());
-    toast.success("Logout Successfully")
+    toast.success("Logout Successfully");
     sessionStorage.removeItem("token");
+    sessionStorage.removeItem("user");
+    sessionStorage.removeItem("budget");
     navigate("/login");
   };
 
@@ -181,7 +181,7 @@ const ExpenseTracker = () => {
                   {
                     length:
                       new Date().getFullYear() -
-                      new Date(earliestDate).getFullYear() +
+                      new Date(earliestDate||newUserEarliestDate).getFullYear() +
                       1,
                   },
                   (_, i) => new Date().getFullYear() - i

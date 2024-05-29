@@ -1,40 +1,38 @@
 import React from "react";
-import { Routes, Route } from "react-router-dom";
+import { Routes, Route, useNavigate, Navigate } from "react-router-dom";
 import LoginPage from "./pages/LoginPage";
 import RegisterPage from "./pages/RegisterPage";
 import ExpenseTracker from "./pages/ExpenseTracker";
 import PrivateRoute from "./components/PrivateRoute";
 import LandingPage from "./pages/LandingPage";
-import { useSelector } from "react-redux";
-
+import NotFoundPage from "./pages/NotFoundPage";
 const AllRoutes = () => {
-  const { token } = useSelector((state) => state.auth);
+  const token = sessionStorage.getItem("token");
 
-  function guard_page() {
-    if (token) {
-      return <ExpenseTracker />;
+  function LoginGuard() {
+    if (!token) {
+      return <LoginPage />;
     }
+    return <Navigate to="/expenses" />;
   }
+
+  function RegisterGuard() {
+    if (!token) {
+      return <RegisterPage />;
+    }
+    return <Navigate to="/expenses" />;
+  }
+  function LandingPageGuard() {
+    if (!token) {
+      return <LandingPage />;
+    }
+    return <Navigate to="/expenses" />;
+  }
+
   return (
     <Routes>
-      <Route
-        path="/login"
-        element={
-          <guard_page>
-            {" "}
-            <LoginPage />
-          </guard_page>
-        }
-      />
-      <Route
-        path="/register"
-        element={
-          <guard_page>
-            {" "}
-            <RegisterPage />{" "}
-          </guard_page>
-        }
-      />
+      <Route path="/login" element={<LoginGuard />} />
+      <Route path="/register" element={<RegisterGuard />} />
       <Route
         path="/expenses"
         element={
@@ -44,7 +42,8 @@ const AllRoutes = () => {
           </PrivateRoute>
         }
       />
-      <Route path="/" element={<LandingPage />} />
+      <Route path="/" element={<LandingPageGuard />} />
+      <Route path="*" element={<NotFoundPage/>}/> 
     </Routes>
   );
 };

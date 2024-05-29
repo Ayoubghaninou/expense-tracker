@@ -37,7 +37,7 @@ function UseChart({ totalExpense, onEditBudget }) {
           <div className="relative text-center rounded-full p-4">
             <p className="text-sm  font-semibold text-[#6E6D6D]"> Balance</p>
             <p className="font-bold  text-[7vw] text-light_black">Rs.{budget}</p>
-            <p onClick={onEditBudget} className="text-[#6E6D6D] w-max mx-auto text-sm">
+            <p onClick={onEditBudget} className="text-[#6E6D6D] w-max mx-auto text-lg">
             <MdEdit />
 
             </p>
