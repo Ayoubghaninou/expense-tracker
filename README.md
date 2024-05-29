@@ -2,6 +2,8 @@
 
 This is an Expense Tracker application built with React for the frontend and Node.js/Express for the backend. The app allows users to add, update, and delete their expenses, as well as view a list of expenses with the ability to filter them by month and year.
 
+ <img src="overview_img.png">
+
 ## Table of Contents
 
 - [Features](#features)
