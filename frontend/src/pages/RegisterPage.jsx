@@ -31,12 +31,16 @@ const RegisterPage = () => {
     if (registerError) {
       toast.error(registerError);
     }
+    dispatch({ type: "CLEAR_ERROR" });
   }, [registerError]);
 
   return (
-    <div className="flex justify-center items-center min-h-screen  w-11/12 mx-auto">
-      <div className="bg-white shadow-md rounded-lg p-8 max-w-md w-full">
-        <h1 className="text-2xl font-bold text-center text-gray-700 mb-6">
+    <div className="bg-blue_c min-h-screen ">
+      <div className="min-h-[35vh] flex justify-center items-center">
+        <img src="/register_yellow_icon.png" className=" mx-auto" alt="" />
+      </div>
+      <div className="bg-white min-h-[65vh]	rounded-t-3xl shadow-md     p-8 max-w-md w-full">
+        <h1 className="text-[7vw] font-bold text-center text-light_black  mb-6">
           Create an Account
         </h1>
         <form onSubmit={handleSubmit}>
@@ -82,11 +86,13 @@ const RegisterPage = () => {
               className="w-full p-3 border border-gray-300 rounded-md focus:outline-none focus:border-purple-500 transition duration-200"
             />
           </div>
-          {registerError && <p className="text-red-500 text-sm">{registerError}</p>}
+          {registerError && (
+            <p className="text-red-500 text-sm">{registerError}</p>
+          )}
           <button
             type="submit"
             disabled={registerLoading}
-            className="w-full bg-blue-500 text-white py-3 rounded-md hover:bg-blue-600 transition duration-200"
+            className="w-full bg-blue_c  text-gray_c py-3 rounded-md hover:bg-gray-400 font-medium transition duration-200"
           >
             {registerLoading ? (
               <div className="flex justify-center items-center">
@@ -113,9 +119,9 @@ const RegisterPage = () => {
               "Register"
             )}
           </button>
-          <div className="text-center mt-4 text-sm text-gray-600">
+          <div className="text-center font-medium mt-4 text-sm text-gray-700">
             Already have an account?{" "}
-            <Link to="/login" className="text-purple-500 hover:underline">
+            <Link to="/login" className="text-yellow_c  hover:underline">
               Login
             </Link>
           </div>

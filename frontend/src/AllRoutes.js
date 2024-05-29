@@ -5,12 +5,36 @@ import RegisterPage from "./pages/RegisterPage";
 import ExpenseTracker from "./pages/ExpenseTracker";
 import PrivateRoute from "./components/PrivateRoute";
 import LandingPage from "./pages/LandingPage";
+import { useSelector } from "react-redux";
 
 const AllRoutes = () => {
+  const { token } = useSelector((state) => state.auth);
+
+  function guard_page() {
+    if (token) {
+      return <ExpenseTracker />;
+    }
+  }
   return (
     <Routes>
-      <Route path="/login" element={<LoginPage />} />
-      <Route path="/register" element={<RegisterPage />} />
+      <Route
+        path="/login"
+        element={
+          <guard_page>
+            {" "}
+            <LoginPage />
+          </guard_page>
+        }
+      />
+      <Route
+        path="/register"
+        element={
+          <guard_page>
+            {" "}
+            <RegisterPage />{" "}
+          </guard_page>
+        }
+      />
       <Route
         path="/expenses"
         element={
@@ -20,9 +44,7 @@ const AllRoutes = () => {
           </PrivateRoute>
         }
       />
-      <Route path="/" element={<LandingPage/>}/>
-      {/* <PrivateRoute path="/expenses" component={ExpenseTracker} /> */}
-      {/* <Redirect from="/" to="/expenses" /> */}
+      <Route path="/" element={<LandingPage />} />
     </Routes>
   );
 };
