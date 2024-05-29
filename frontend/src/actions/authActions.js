@@ -1,5 +1,5 @@
 import axios from "axios";
-const baseurl = "http://localhost:3000/api/users";
+const baseurl = "https://expense-tracker-nu-weld.vercel.app/api/users";
 //https://expense-tracker-nu-weld.vercel.app
 export const login = (email, password) => async (dispatch) => {
   dispatch({ type: "LOGIN_REQUEST" });
