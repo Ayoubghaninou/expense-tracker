@@ -125,7 +125,7 @@ const RegisterPage = () => {
                 Loading...
               </div>
             ) : (
-              "Register"
+              "REGISTER"
             )}
           </button>
           <div className="text-center font-medium mt-4 text-sm text-gray-700">
