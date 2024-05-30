@@ -15,16 +15,19 @@ const RegisterPage = () => {
   const [name, setName] = useState("");
   const [password, setPassword] = useState("");
 
-
-
   useEffect(() => {
-    window.scrollTo(0, 0); 
+    window.scrollTo(0, 0);
   }, []);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
     await dispatch(register(name, email, password));
   };
+
+  const token = sessionStorage.getItem("token");
+  if (token) {
+    navigate("/expenses");
+  }
 
   useEffect(() => {
     if (registerSuccess) {

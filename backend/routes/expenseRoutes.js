@@ -14,7 +14,8 @@ router.post("/", auth, async (req, res) => {
     await expense.save();
     res.status(201).json(expense);
   } catch (error) {
-    res.status(400).json({ message: error.message });
+    console.error("Expense Creation Error: ", error);
+    res.status(500).json({ message: "Internal server error. Please try again later." });
   }
 });
 
@@ -35,7 +36,8 @@ router.get("/:month/:year", auth, async (req, res) => {
 
     res.json({ expenses, earliestExpense });
   } catch (error) {
-    res.status(500).json({ message: error.message });
+    console.error("Expense Fetching Error: ", error);
+    res.status(500).json({ message: "Internal server error. Please try again later." });
   }
 });
 
@@ -52,13 +54,12 @@ router.patch("/:id", auth, async (req, res) => {
       { new: true, runValidators: true }
     );
     if (!expense) {
-      return res
-        .status(404)
-        .json({ error: "Expense not found or user unauthorized" });
+      return res.status(404).json({ message: "Expense not found or user unauthorized" });
     }
     res.json(expense);
   } catch (error) {
-    res.status(400).json({ error: error.message });
+    console.error("Expense Update Error: ", error);
+    res.status(400).json({ message: error.message });
   }
 });
 
@@ -70,13 +71,12 @@ router.delete("/:id", auth, async (req, res) => {
   try {
     const expense = await Expense.findOneAndDelete({ _id: id, userId });
     if (!expense) {
-      return res
-        .status(404)
-        .json({ error: "Expense not found or user unauthorized" });
+      return res.status(404).json({ message: "Expense not found or user unauthorized" });
     }
     res.json({ message: "Expense deleted" });
   } catch (error) {
-    res.status(400).json({ error: error.message });
+    console.error("Expense Deletion Error: ", error);
+    res.status(500).json({ message: "Internal server error. Please try again later." });
   }
 });
 

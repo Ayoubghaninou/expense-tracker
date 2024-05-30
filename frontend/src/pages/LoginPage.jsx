@@ -9,12 +9,13 @@ const LoginPage = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const navigate = useNavigate();
-  const { loginLoading, token, loginError } = useSelector(
+  const { loginLoading, loginSuccess, loginError } = useSelector(
     (state) => state.auth
   );
+  const token = sessionStorage.getItem("token");
 
   useEffect(() => {
-    window.scrollTo(0, 0); 
+    window.scrollTo(0, 0);
   }, []);
 
   const HandleSubmit = async (e) => {
@@ -22,20 +23,22 @@ const LoginPage = () => {
     await dispatch(login(email, password));
   };
 
+  if (token) {
+    navigate("/expenses");
+  }
+
   useEffect(() => {
-    if (token) {
+    if (loginSuccess) {
       toast.success("Login successful!");
-      setTimeout(() => {
-        navigate("/expenses");
-      }, 200);
     }
-  }, [token]);
+    dispatch({ type: "CLEAR_ERROR" });
+  }, [loginSuccess]);
 
   useEffect(() => {
     if (loginError) {
       toast.error(loginError);
     }
-    dispatch({type:"CLEAR_ERROR"})
+    dispatch({ type: "CLEAR_ERROR" });
   }, [loginError]);
 
   return (

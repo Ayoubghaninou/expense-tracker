@@ -17,7 +17,9 @@ router.post("/register", async (req, res) => {
     await user.save();
     res.status(201).json({ message: "Successfully Registered" });
   } catch (error) {
-    res.status(400).json({ message: error });
+    res
+      .status(500)
+      .json({ message: "Internal server error. Please try again later." });
   }
 });
 
@@ -35,7 +37,9 @@ router.post("/login", async (req, res) => {
     const budget = user.budget;
     res.json({ token, name, budget });
   } catch (error) {
-    res.status(400).json({ message: error });
+    res
+      .status(500)
+      .json({ message: "Internal server error. Please try again later." });
   }
 });
 
@@ -53,7 +57,10 @@ router.put("/budget", auth, async (req, res) => {
     await user.save();
     res.json({ budget: user.budget });
   } catch (error) {
-    res.status(500).send({ message: "Server error" });
+    console.error("Budget Update Error: ", error);
+    res
+      .status(500)
+      .json({ message: "Internal server error. Please try again later." });
   }
 });
 
