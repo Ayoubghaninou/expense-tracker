@@ -25,7 +25,7 @@ const ExpenseForm = ({
 
   useEffect(() => {
     if (addError) {
-      toast.error("Failed to add your expense");
+      toast.error(addError);
       dispatch({ type: "RESET_STATUS" });
     }
   }, [addError, dispatch]);
@@ -39,7 +39,7 @@ const ExpenseForm = ({
 
   useEffect(() => {
     if (updateError) {
-      toast.error("Failed to update your expense");
+      toast.error(updateError);
       dispatch({ type: "RESET_STATUS" });
     }
   }, [updateError, dispatch]);

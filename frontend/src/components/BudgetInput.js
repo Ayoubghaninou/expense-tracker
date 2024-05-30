@@ -19,7 +19,7 @@ const BudgetInput = ({ setBudgetModal }) => {
 
   useEffect(() => {
     if (updateBudgetError) {
-      toast.error("Failed to update");
+      toast.error(updateBudgetError);
     }
     dispatch({ type: "BUDGET_STATE_RESET" });
   }, [updateBudgetError]);

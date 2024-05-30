@@ -29,7 +29,7 @@ const ExpenseList = ({
 
   useEffect(() => {
     if (deleteError) {
-      toast.error("Failed to delete your expense");
+      toast.error(deleteError);
       dispatch({ type: "RESET_STATUS" });
       setDeletingId(null); // Reset deletingId if there's an error
     }

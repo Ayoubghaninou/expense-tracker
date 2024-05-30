@@ -1,5 +1,5 @@
 const initialState = {
-  token: null,
+  loginSuccess: null,
   loginLoading: false,
   registerLoading: false,
   updateBudgetLoading: false,
@@ -42,7 +42,7 @@ const userReducer = (state = initialState, action) => {
       return {
         ...state,
         budget: action.payload.budget,
-        token: action.payload.token,
+        loginSuccess: true,
         loginLoading: false,
         loginError: null,
       };
@@ -85,12 +85,13 @@ const userReducer = (state = initialState, action) => {
         updateBudgetLoading: false,
         updateBudgetError: action.payload,
       };
-     case "CLEAR_ERROR":
-     return{
-      ...state,
-      loginError: null,
-      registerError:null
-     }
+    case "CLEAR_ERROR":
+      return {
+        ...state,
+        loginError: null,
+        loginSuccess: null,
+        registerError: null,
+      };
     case "LOGOUT":
       return initialState;
 
