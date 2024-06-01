@@ -15,7 +15,7 @@ import ExpenseList from "../components/ExpenseList";
 import UserInfo from "../components/UserInfo";
 import UseChart from "../components/UseChart";
 import BudgetInput from "../components/BudgetInput";
-import {  toast } from "react-toastify";
+import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { v4 as uuidv4 } from "uuid";
 
@@ -24,7 +24,9 @@ const ExpenseTracker = () => {
   const navigate = useNavigate();
   const { budget, token, user } = useSelector((state) => state.auth);
 
-  const { expenses,newUserEarliestDate, earliestDate } = useSelector((state) => state.expenses);
+  const { expenses, newUserEarliestDate, earliestDate } = useSelector(
+    (state) => state.expenses
+  );
   const [amount, setAmount] = useState("");
   const [category, setCategory] = useState("");
   const [editId, setEditId] = useState(null);
@@ -40,7 +42,7 @@ const ExpenseTracker = () => {
   const getMonthOptions = () => {
     //if (!earliestDate||!newUserEarliestDate) return [];
 
-    const startDate = new Date(earliestDate||newUserEarliestDate);
+    const startDate = new Date(earliestDate || newUserEarliestDate);
     const currentDate = new Date();
 
     let months = [];
@@ -157,7 +159,7 @@ const ExpenseTracker = () => {
         <div>
           {" "}
           <h1 className="font-bold  text-2xl">Transactions</h1>
-          {expenses.length > 0 ? (
+          {earliestDate && (
             <div className="flex mt-2 mb-4">
               <select
                 value={month}
@@ -181,7 +183,9 @@ const ExpenseTracker = () => {
                   {
                     length:
                       new Date().getFullYear() -
-                      new Date(earliestDate||newUserEarliestDate).getFullYear() +
+                      new Date(
+                        earliestDate || newUserEarliestDate
+                      ).getFullYear() +
                       1,
                   },
                   (_, i) => new Date().getFullYear() - i
@@ -192,8 +196,6 @@ const ExpenseTracker = () => {
                 ))}
               </select>
             </div>
-          ) : (
-            <h3 className="text-center w-max mx-auto pt-5">No Transactions </h3>
           )}
         </div>
         <div
@@ -205,11 +207,15 @@ const ExpenseTracker = () => {
           ADD
         </div>
       </div>
-      <ExpenseList
-        handleEditClick={handleEditClick}
-        handleDeleteClick={handleDeleteClick}
-        setVisibleForm={setVisibleForm}
-      />
+      {expenses.length>0 ? (
+        <ExpenseList
+          handleEditClick={handleEditClick}
+          handleDeleteClick={handleDeleteClick}
+          setVisibleForm={setVisibleForm}
+        />
+      ) : (
+        <h3 className="text-center w-max mx-auto pt-5">No Transactions </h3>
+      )}
     </div>
   );
 };
