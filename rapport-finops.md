@@ -1,39 +1,3 @@
-ayoub_gh
-ayoub_gh
-Online
-
-ayoub_gh — 16/06/2025 12:16
-Objectifs stratégiques re-classés et enrichis (détaillés + contraintes + exemples concrets)
-
-1. Augmentation des gains financiers
-Pour dynamiser la rentabilité, les distributeurs cherchent à augmenter leurs volumes et à dégager de nouvelles sources de marge sans relever les prix faciaux.
-Monter la part des MDD : Carrefour place les marques propres au cœur de son modèle et veut qu’elles représentent 40 % des ventes alimentaires d’ici 2026, améliorant la marge commerciale tout en offrant des prix bas. (carrefour.com)
-Capitaliser sur le e-commerce et le drive : E.Leclerc détient déjà 46 % de part de marché sur les courses drive/livraison en France, générant 5,5 Mds € de CA et captant des paniers plus élevés. (bfmtv.com)
-Expand
-message.txt
-7 KB
-pcz — 16/06/2025 12:17
-Image
-ayoub_gh — 13/07/2025 19:20
-yooo
-ayoub_gh — 10:10
-Image
-Image
-Image
-pcz — 10:15
-
-# 📄 Rapport FinOps – Optimisation des coûts Kubernetes
-
-## 🧑💻 Projet : Déploiement d'une application conteneurisée sur Kubernetes  
-**Stack technique :** Frontend, Backend, Prometheus, Grafana, Kubecost  
-**Cluster utilisé :** Minikube – cluster-one  
-Expand
-rapport-finops.md
-4 KB
-﻿
-pcz
-micky9117
- 
 
 # 📄 Rapport FinOps – Optimisation des coûts Kubernetes
 
@@ -110,5 +74,3 @@ Ces données confirment que la plateforme reste stable et peu consommatrice, ce 
 ## 7. ✅ Conclusion
 
 Grâce à Kubecost et Grafana, nous avons pu observer en détail l’impact des ressources utilisées dans notre cluster Kubernetes. Bien que les coûts soient faibles (environ **0.25$ sur 2 jours**), les **bonnes pratiques FinOps mises en place** garantissent une gestion scalable, propre et économe en environnement cloud futur.
-rapport-finops.md
-4 KB
