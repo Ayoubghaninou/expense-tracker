@@ -2,7 +2,7 @@
 
 ## 📌 Dépôt Git
 
-👉 (Lien vers le Repo)[https://github.com/Ayoubghaninou/expense-tracker](https://github.com/Ayoubghaninou/expense-tracker)
+👉 [Lien vers le Repo](https://github.com/Ayoubghaninou/expense-tracker)
 
 ---
 
