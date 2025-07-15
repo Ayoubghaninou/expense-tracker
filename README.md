@@ -1,16 +1,16 @@
-Bien reçu Lazeeey — voici le **README.md complet**, **prêt à copier-coller** en **français**, structuré et clair.
-Il combine **setup Node.js/React**, **Docker/K8s**, **Prometheus**, **Kubecost**, **Grafana**, et **commandes utiles**.
+# 📄 Expense Tracker - Guide Complet (FR)
 
----
-
-````markdown
-# 📄 Expense Tracker — Guide Complet (FR)
- <img src="overview_img.png">
 ## 📌 Dépôt Git
 
-👉 [https://github.com/Ayoubghaninou/expense-tracker](https://github.com/Ayoubghaninou/expense-tracker)
+👉 (Lien vers le Repo)[https://github.com/Ayoubghaninou/expense-tracker](https://github.com/Ayoubghaninou/expense-tracker)
 
 ---
+
+## Membres du groupe
+
+- Ghaninou Ayoub
+- Chelloufi Anas
+- Boumziza Anas
 
 ## 🚀 Fonctionnalités
 
