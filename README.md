@@ -1,115 +1,170 @@
-# Expense Tracker
+Bien reçu Lazeeey — voici le **README.md complet**, **prêt à copier-coller** en **français**, structuré et clair.
+Il combine **setup Node.js/React**, **Docker/K8s**, **Prometheus**, **Kubecost**, **Grafana**, et **commandes utiles**.
 
-This is an Expense Tracker application built with React for the frontend and Node.js/Express for the backend. The app allows users to add, update, and delete their expenses, as well as view a list of expenses with the ability to filter them by month and year.
+---
 
+````markdown
+# 📄 Expense Tracker — Guide Complet (FR)
  <img src="overview_img.png">
+## 📌 Dépôt Git
 
-## Table of Contents
+👉 [https://github.com/Ayoubghaninou/expense-tracker](https://github.com/Ayoubghaninou/expense-tracker)
 
-- [Features](#features)
-- [Installation](#installation)
-  - [Backend Setup](#backend-setup)
-  - [Frontend Setup](#frontend-setup)
-- [Usage](#usage)
-- [Error Handling and Loading States](#error-handling-and-loading-states)
-- [API Endpoints](#api-endpoints)
-- [Technologies Used](#technologies-used)
-- [Contributing](#contributing)
+---
 
-## Features
+## 🚀 Fonctionnalités
 
-- Add new expenses
-- Edit existing expenses
-- Delete expenses
-- View a list of expenses
-- Filter expenses by month and year
-- User authentication
+- ✅ Ajout / modification / suppression de dépenses
+- 📅 Filtrage par mois & année
+- 🔑 Authentification utilisateur
+- 🧩 API REST Express + React Frontend
+- 📊 Monitoring FinOps avec **Prometheus**, **Grafana**, **Kubecost**
 
-## Installation
+---
 
-### Backend Setup
+## 📋 Pré-requis
 
-1. Clone the repository:
-    ```bash
-    git clone https://github.com/sukantadeveloper/expense-tracker.git
-    cd expense-tracker
-    ```
+- **Ubuntu** 22+ ou 24+
+- **Docker**, **docker-compose**, **kubectl**, **minikube**, **helm**
+- Droits `sudo`
+- Connexion Internet stable
 
-2. Install backend dependencies:
-    ```bash
-    cd backend
-    npm install
-    ```
+---
 
-3. Create a `.env` file in the `backend` directory and add the following environment variables:
-    ```plaintext
-    MONGO_URI=your_mongodb_connection_string
-    JWT_SECRET=your_jwt_secret
-    ```
+## 🗂️ Clonage du projet
 
-4. Start the backend server:
-    ```bash
-    npm start
-    ```
+```bash
+git clone https://github.com/Ayoubghaninou/expense-tracker.git
+cd expense-tracker
+````
 
-### Frontend Setup
+---
 
-1. Install frontend dependencies:
-    ```bash
-    cd frontend
-    npm install
-    ```
+## ⚙️ Installation **(mode Node.js classique)**
 
-2. Start the frontend development server:
-    ```bash
-    npm start
-    ```
+### 🔗 Backend
 
-## Usage
+```bash
+cd backend
+npm install
 
-1. Open your browser and navigate to `http://localhost:3000` to view the application.
-2. Use the form to add, edit, or delete expenses.
-3. Filter expenses by selecting the desired month and year.
+# Créez le fichier .env :
+echo "MONGO_URI=YOUR_MONGO_URI" >> .env
+echo "JWT_SECRET=YOUR_SECRET" >> .env
 
-## Error Handling and Loading States
+# Lancez :
+npm start
+```
 
-The application includes comprehensive error handling and loading state management to enhance user experience:
+### 🌐 Frontend
 
-- **Error Handling**: 
-  - Uses `react-toastify` for displaying error messages.
-  - Catches and displays errors from API calls to inform the user of issues like failed deletions or updates.
+```bash
+cd frontend
+npm install
+npm start
+```
 
-- **Loading States**:
-  - Shows loading indicators while fetching data, adding new expenses, updating existing ones, or deleting expenses.
-  - Utilizes conditional rendering to display loaders during API requests.
+Accès ➜ [http://localhost:3000](http://localhost:3000)
 
+---
 
+## 🐳 Dockerisation + Kubernetes
 
-## API Endpoints
+### ✅ Préparer l’environnement
 
-### User Authentication Routes
+```bash
+sudo apt update && sudo apt install docker.io docker-compose kubectl minikube helm -y
+minikube start --cpus=2 --memory=6000
+eval "$(minikube docker-env)"
+```
 
-- `POST /api/users/register` - Register a new user.
-- `POST /api/users/login` - Login a user.
+---
 
-### Expense Routes
+### 🔨 Builder les images
 
-- `GET /api/expenses/:month/:year` - Fetch expenses for a specific month and year.
-- `POST /api/expenses` - Add a new expense.
-- `PATCH /api/expenses/:id` - Update an existing expense.
-- `DELETE /api/expenses/:id` - Delete an expense.
+```bash
+docker build -t expense-tracker-backend:latest -f backend/Dockerfile backend
+docker build -t expense-tracker-frontend:latest -f frontend/Dockerfile frontend
+```
 
-## Technologies Used
+---
 
-- **Frontend**: React, Redux, TailwindCSS, react-toastify
-- **Backend**: Node.js, Express, MongoDB, Mongoose
-- **Authentication**: JWT
+### 🚢 Déployer sur K8s
 
-## Contributing
+```bash
+kubectl apply -f k8s/
+```
 
-1. Fork the repository.
-2. Create a new branch (`git checkout -b feature-branch`).
-3. Make your changes.
-4. Commit your changes (`git commit -am 'Add new feature'`).
-5. Push to the branch (`git push origin feature-branch`).
-6. Create a new Pull Request.
+---
+
+## 📈 Monitoring FinOps
+
+### 📦 Installer Prometheus & Kubecost
+
+```bash
+helm repo add prometheus-community https://prometheus-community.github.io/helm-charts
+helm repo add kubecost https://kubecost.github.io/cost-analyzer/
+helm repo update
+
+helm upgrade --install kube-prom-stack prometheus-community/kube-prometheus-stack \
+  --namespace monitoring --create-namespace
+
+helm upgrade --install kubecost kubecost/cost-analyzer \
+  --namespace kubecost --create-namespace
+```
+
+---
+
+### 🔐 Récupérer le mot de passe admin **Grafana**
+
+```bash
+kubectl get secret --namespace monitoring kube-prom-stack-grafana \
+  -o jsonpath="{.data.admin-password}" | base64 --decode ; echo
+```
+
+---
+
+## ▶️ Lancer & accéder
+
+```bash
+# Frontend
+minikube service frontend
+
+# Backend
+minikube service backend
+
+# Kubecost
+kubectl -n kubecost port-forward svc/kubecost-cost-analyzer 9090:9090
+
+# Grafana
+kubectl -n monitoring port-forward svc/kube-prom-stack-grafana 3000:80
+```
+
+---
+
+## 🔗 URLs & Accès
+
+| Service  | URL                                            | Login              |
+| -------- | ---------------------------------------------- | ------------------ |
+| Frontend | [http://localhost:3000](http://localhost:3000) | -                  |
+| Backend  | via `minikube service backend`                 | -                  |
+| Grafana  | [http://localhost:3000](http://localhost:3000) | admin / <password> |
+| Kubecost | [http://localhost:9090](http://localhost:9090) | -                  |
+
+---
+
+## ✅ Contribution
+
+1. Fork du repo
+2. Nouvelle branche : `git checkout -b feature-...`
+3. Dév, commit, push
+4. Pull Request 🚀
+
+---
+
+## 📊 FinOps
+
+* **Kubecost** : analyse coûts & optimisations.
+* **Prometheus** : collecte métriques.
+* **Grafana** : dashboards & visualisations.
+
